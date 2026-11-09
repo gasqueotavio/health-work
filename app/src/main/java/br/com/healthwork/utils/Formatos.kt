@@ -18,6 +18,7 @@ object Formatos {
     private val fmtData: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
     private val fmtHora: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
     private val mesAno: DateTimeFormatter = DateTimeFormatter.ofPattern("MMMM 'de' yyyy", localeBr)
+    private val diaExtenso: DateTimeFormatter = DateTimeFormatter.ofPattern("EEEE, d 'de' MMMM", localeBr)
 
     fun paraLocalDateTime(millis: Long): LocalDateTime =
         LocalDateTime.ofInstant(Instant.ofEpochMilli(millis), zona)
@@ -30,6 +31,10 @@ object Formatos {
     fun hora(millis: Long): String = paraLocalDateTime(millis).format(fmtHora)
 
     fun dataHora(millis: Long): String = "${data(millis)} ${hora(millis)}"
+
+    /** Ex.: "Segunda-feira, 9 de novembro". */
+    fun diaPorExtenso(millis: Long): String =
+        paraLocalDateTime(millis).format(diaExtenso).replaceFirstChar { it.titlecase(localeBr) }
 
     fun mes(mes: YearMonth): String =
         mes.format(mesAno).replaceFirstChar { it.titlecase(localeBr) }

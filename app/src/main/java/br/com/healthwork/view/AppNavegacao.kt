@@ -10,6 +10,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -34,7 +37,6 @@ import br.com.healthwork.viewmodel.EspelhoViewModelFactory
 import br.com.healthwork.viewmodel.HistoricoViewModel
 import br.com.healthwork.viewmodel.HistoricoViewModelFactory
 
-/** As quatro telas descritas na proposta. */
 enum class Tela(val rota: String, val titulo: String, val icone: ImageVector) {
     COLABORADORES("colaboradores", "Colaboradores", Icons.Default.Person),
     BATER_PONTO("bater_ponto", "Bater ponto", Icons.Default.LocationOn),
@@ -54,7 +56,15 @@ fun AppNavegacao(
     val telaAtual = Tela.entries.find { it.rota == rotaAtual } ?: Tela.BATER_PONTO
 
     Scaffold(
-        topBar = { TopAppBar(title = { Text(telaAtual.titulo) }) },
+        topBar = {
+            TopAppBar(
+                title = { Text(telaAtual.titulo) },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimary
+                )
+            )
+        },
         bottomBar = {
             NavigationBar {
                 Tela.entries.forEach { tela ->
@@ -70,7 +80,12 @@ fun AppNavegacao(
                             }
                         },
                         icon = { Icon(tela.icone, contentDescription = null) },
-                        label = { Text(tela.titulo) }
+                        label = { Text(tela.titulo) },
+                        colors = NavigationBarItemDefaults.colors(
+                            selectedIconColor = MaterialTheme.colorScheme.primary,
+                            selectedTextColor = MaterialTheme.colorScheme.primary,
+                            indicatorColor = MaterialTheme.colorScheme.primaryContainer
+                        )
                     )
                 }
             }
