@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- Fotos de comprovante dos registros de ponto -->
+    <files-path name="fotos" path="fotos/" />
+    <!-- Arquivos CSV do espelho de ponto para compartilhamento -->
+    <cache-path name="espelhos" path="espelhos/" />
+</paths>
