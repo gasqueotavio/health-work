@@ -20,7 +20,6 @@ class ColaboradorRepository(
     suspend fun editar(colaborador: Colaborador) =
         colaboradorDao.atualizar(colaborador)
 
-    /** Exclui o colaborador; os registros dele são excluídos em cascata pelo banco. */
     suspend fun excluir(colaborador: Colaborador) {
         val fotos = registroPontoDao.fotosDoColaborador(colaborador.codigo)
         colaboradorDao.excluir(colaborador)

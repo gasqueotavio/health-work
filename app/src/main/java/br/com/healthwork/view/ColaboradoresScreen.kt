@@ -50,7 +50,6 @@ fun ColaboradoresScreen(
 ) {
     val colaboradores = viewModel.colaboradores
 
-    // Carrega a lista sempre que a tela abre.
     LaunchedEffect(Unit) { viewModel.carregar() }
 
     var dialogoAberto by rememberSaveable { mutableStateOf(false) }

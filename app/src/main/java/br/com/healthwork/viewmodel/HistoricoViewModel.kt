@@ -19,17 +19,12 @@ class HistoricoViewModel(
     var registros by mutableStateOf<List<RegistroComNome>>(emptyList())
         private set
 
-    /** Chamado quando a tela abre. */
     fun carregar() {
         viewModelScope.launch {
             registros = repository.listar()
         }
     }
 
-    /**
-     * Corrige data, hora e tipo do registro com justificativa.
-     * Retorna a mensagem de erro, ou null se deu certo.
-     */
     fun ajustar(
         registro: RegistroPonto,
         dataTexto: String,

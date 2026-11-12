@@ -59,7 +59,6 @@ fun HistoricoScreen(
 ) {
     val registros = viewModel.registros
 
-    // Carrega os registros sempre que a tela abre.
     LaunchedEffect(Unit) { viewModel.carregar() }
 
     var idParaAjustar by rememberSaveable { mutableStateOf<Long?>(null) }

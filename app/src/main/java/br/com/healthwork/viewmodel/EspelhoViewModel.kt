@@ -30,15 +30,12 @@ class EspelhoViewModel(
     var registrosDoMes by mutableStateOf<List<RegistroPonto>>(emptyList())
         private set
 
-    /** Arquivo CSV pronto para a tela abrir o seletor de aplicativos. */
     var arquivoParaCompartilhar by mutableStateOf<File?>(null)
         private set
 
-    /** Chamado quando a tela abre. */
     fun carregar() {
         viewModelScope.launch {
             colaboradores = colaboradorRepository.listar()
-            // Mantém a seleção só se o colaborador ainda existir (pode ter sido editado ou excluído).
             selecionado = colaboradores.find { it.codigo == selecionado?.codigo }
             carregarRegistrosDoMes()
         }
@@ -65,7 +62,6 @@ class EspelhoViewModel(
         else registroRepository.registrosDoMes(colaborador.codigo, mes)
     }
 
-    /** Gera o CSV do mês; a tela abre o seletor de aplicativos quando ele estiver pronto. */
     fun gerarEspelho() {
         val colaborador = selecionado ?: return
         viewModelScope.launch {

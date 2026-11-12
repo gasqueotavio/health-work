@@ -7,7 +7,6 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 
-/** Paleta do app: azul como cor principal e verde de destaque. Só tema claro. */
 private val CoresDoApp = lightColorScheme(
     primary = AzulPrincipal,
     onPrimary = Branco,
@@ -27,7 +26,6 @@ private val CoresDoApp = lightColorScheme(
     surfaceVariant = CinzaAzulado,
     onSurfaceVariant = TextoSecundario,
 
-    // Cards, menus, diálogos e barra de navegação ficam brancos sobre o fundo azulado.
     surfaceContainerLowest = Branco,
     surfaceContainerLow = Branco,
     surfaceContainer = Branco,
@@ -38,7 +36,6 @@ private val CoresDoApp = lightColorScheme(
     outlineVariant = ContornoSuave
 )
 
-/** Cantos um pouco menos arredondados que o padrão (diálogos, menus, botão flutuante, chips). */
 private val FormasDoApp = Shapes(
     extraSmall = RoundedCornerShape(4.dp),
     small = RoundedCornerShape(6.dp),

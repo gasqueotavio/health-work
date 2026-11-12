@@ -16,17 +16,12 @@ class ColaboradoresViewModel(
     var colaboradores by mutableStateOf<List<Colaborador>>(emptyList())
         private set
 
-    /** Chamado quando a tela abre. */
     fun carregar() {
         viewModelScope.launch {
             colaboradores = repository.listar()
         }
     }
 
-    /**
-     * Cadastra (colaborador == null) ou edita o colaborador.
-     * Retorna a mensagem de erro, ou null se deu certo.
-     */
     fun salvar(colaborador: Colaborador?, nome: String): String? {
         val nomeLimpo = nome.trim()
         if (nomeLimpo.isEmpty()) return "Informe o nome do colaborador."

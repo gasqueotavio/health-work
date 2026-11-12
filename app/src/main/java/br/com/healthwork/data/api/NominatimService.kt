@@ -4,7 +4,6 @@ import br.com.healthwork.model.NominatimResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-/** Geocodificação reversa (coordenadas -> endereço) pelo Nominatim / OpenStreetMap. */
 interface NominatimService {
 
     @GET("reverse")

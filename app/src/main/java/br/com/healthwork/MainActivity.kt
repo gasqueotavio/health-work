@@ -37,7 +37,6 @@ class MainActivity : ComponentActivity() {
             cacheDir
         )
 
-        // Ícones da barra de status em branco, por cima da barra azul do topo.
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.dark(android.graphics.Color.TRANSPARENT)
         )

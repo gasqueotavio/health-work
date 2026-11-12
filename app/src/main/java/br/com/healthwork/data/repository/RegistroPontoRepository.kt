@@ -28,20 +28,12 @@ class RegistroPontoRepository(
         return dao.listarPorPeriodo(codigoColaborador, inicio, fim)
     }
 
-    /**
-     * Tipo alternado automaticamente: se o último registro do dia foi entrada,
-     * o próximo é saída; caso contrário (ou sem registro no dia), é entrada.
-     */
     suspend fun proximoTipo(codigoColaborador: Long): TipoRegistro {
         val (inicio, fim) = Formatos.intervaloDoDia(LocalDate.now())
         val ultimo = dao.ultimoNoPeriodo(codigoColaborador, inicio, fim)
         return if (ultimo?.tipo == TipoRegistro.ENTRADA) TipoRegistro.SAIDA else TipoRegistro.ENTRADA
     }
 
-    /**
-     * Captura a localização e consulta a API de geocodificação para obter o endereço.
-     * Se a API falhar (ex.: sem internet), devolve as coordenadas no lugar do endereço.
-     */
     suspend fun obterEnderecoAtual(): String {
         val local = localizacao.obterLocalizacaoAtual()
         return try {
@@ -55,7 +47,6 @@ class RegistroPontoRepository(
     private fun coordenadas(latitude: Double, longitude: Double): String =
         String.format(Locale.US, "%.6f, %.6f", latitude, longitude)
 
-    /** Cria o arquivo onde a câmera vai gravar a foto do comprovante. */
     suspend fun criarArquivoFoto(): File = withContext(Dispatchers.IO) {
         val pasta = File(pastaArquivos, "fotos").apply { mkdirs() }
         File(pasta, "ponto_${System.currentTimeMillis()}.jpg")
@@ -77,10 +68,6 @@ class RegistroPontoRepository(
         return registro.copy(id = id)
     }
 
-    /**
-     * Ajusta data/hora e tipo com justificativa. Na primeira correção, os valores
-     * originais são guardados; nas seguintes, o original é mantido.
-     */
     suspend fun ajustar(
         registro: RegistroPonto,
         novaDataHora: Long,
@@ -103,7 +90,6 @@ class RegistroPontoRepository(
         withContext(Dispatchers.IO) { File(registro.fotoPath).delete() }
     }
 
-    /** Gera o espelho de ponto do mês em CSV (separado por ponto e vírgula). */
     suspend fun gerarEspelhoCsv(colaborador: Colaborador, mes: YearMonth): File {
         val registros = registrosDoMes(colaborador.codigo, mes)
         return withContext(Dispatchers.IO) {
@@ -135,7 +121,6 @@ class RegistroPontoRepository(
                 }
             }
 
-            // BOM UTF-8 para o Excel abrir os acentos corretamente.
             val conteudo = "﻿" + linhas.joinToString("\r\n") { linha ->
                 linha.joinToString(";") { campo -> "\"" + campo.replace("\"", "\"\"") + "\"" }
             }

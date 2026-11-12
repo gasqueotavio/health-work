@@ -6,7 +6,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
 
-    // A política de uso do Nominatim exige um User-Agent que identifique o app.
     private val cliente = OkHttpClient.Builder()
         .addInterceptor { chain ->
             val requisicao = chain.request().newBuilder()

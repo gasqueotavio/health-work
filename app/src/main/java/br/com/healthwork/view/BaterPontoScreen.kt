@@ -64,10 +64,8 @@ fun BaterPontoScreen(
 ) {
     val context = LocalContext.current
 
-    // Carrega os colaboradores sempre que a tela abre.
     LaunchedEffect(Unit) { viewModel.carregar() }
 
-    // Relógio do topo, atualizado a cada segundo.
     var agora by remember { mutableLongStateOf(System.currentTimeMillis()) }
     LaunchedEffect(Unit) {
         while (true) {
@@ -86,7 +84,6 @@ fun BaterPontoScreen(
         if (resultado.values.any { it }) viewModel.baterPonto() else viewModel.permissaoNegada()
     }
 
-    // Passo 4: com o endereço pronto, abre a câmera do sistema.
     val etapa = viewModel.etapa
     LaunchedEffect(etapa) {
         val foto = viewModel.fotoPendente
@@ -112,7 +109,6 @@ fun BaterPontoScreen(
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        // Relógio
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(12.dp),
@@ -127,7 +123,6 @@ fun BaterPontoScreen(
             }
         }
 
-        // Colaborador e próxima marcação
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(10.dp),

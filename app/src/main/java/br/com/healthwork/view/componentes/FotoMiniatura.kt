@@ -19,7 +19,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
 
-/** Exibe a foto de comprovante salva no aparelho, reduzida para miniatura. */
 @Composable
 fun FotoMiniatura(caminho: String, modifier: Modifier = Modifier) {
     val imagem by produceState<ImageBitmap?>(initialValue = null, caminho) {

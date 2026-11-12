@@ -49,10 +49,8 @@ fun EspelhoScreen(
     val selecionado = viewModel.selecionado
     val registros = viewModel.registrosDoMes
 
-    // Carrega os colaboradores sempre que a tela abre.
     LaunchedEffect(Unit) { viewModel.carregar() }
 
-    // Abre o seletor de aplicativos do Android (WhatsApp, e-mail etc.) com o CSV.
     val arquivo = viewModel.arquivoParaCompartilhar
     LaunchedEffect(arquivo) {
         if (arquivo == null || selecionado == null) return@LaunchedEffect
@@ -77,7 +75,6 @@ fun EspelhoScreen(
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        // Colaborador e mês
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(10.dp),

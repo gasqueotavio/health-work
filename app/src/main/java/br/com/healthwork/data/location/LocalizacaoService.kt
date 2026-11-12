@@ -14,13 +14,11 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-/** Captura a localização atual do celular (latitude e longitude) com o LocationManager do Android. */
 class LocalizacaoService(private val context: Context) {
 
     private val gerenciador =
         context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-    /** A permissão de localização é verificada na tela antes desta chamada. */
     @SuppressLint("MissingPermission")
     suspend fun obterLocalizacaoAtual(): Location = suspendCancellableCoroutine { cont ->
         val erroGps = IllegalStateException(
@@ -38,7 +36,6 @@ class LocalizacaoService(private val context: Context) {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            // Android 11 ou mais novo
             val cancelamento = CancellationSignal()
             gerenciador.getCurrentLocation(
                 provedor,
@@ -49,7 +46,6 @@ class LocalizacaoService(private val context: Context) {
             }
             cont.invokeOnCancellation { cancelamento.cancel() }
         } else {
-            // Android 8 a 10
             val ouvinte = object : LocationListener {
                 override fun onLocationChanged(local: Location) {
                     cont.resume(local)

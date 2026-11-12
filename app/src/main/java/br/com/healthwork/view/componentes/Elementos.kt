@@ -24,7 +24,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import br.com.healthwork.model.TipoRegistro
 
-/** Círculo com as iniciais do colaborador. */
 @Composable
 fun Avatar(nome: String, modifier: Modifier = Modifier) {
     val iniciais = nome.trim()
@@ -47,7 +46,6 @@ fun Avatar(nome: String, modifier: Modifier = Modifier) {
     }
 }
 
-/** Etiqueta colorida: Entrada em verde, Saída em azul. */
 @Composable
 fun BadgeTipo(tipo: TipoRegistro, modifier: Modifier = Modifier) {
     val entrada = tipo == TipoRegistro.ENTRADA
@@ -67,7 +65,6 @@ fun BadgeTipo(tipo: TipoRegistro, modifier: Modifier = Modifier) {
     }
 }
 
-/** Linha com ícone pequeno e texto (data, endereço etc.). */
 @Composable
 fun InfoLinha(
     icone: ImageVector,
@@ -95,7 +92,6 @@ fun InfoLinha(
     }
 }
 
-/** Mensagem centralizada para quando a lista está vazia. */
 @Composable
 fun EstadoVazio(
     icone: ImageVector,

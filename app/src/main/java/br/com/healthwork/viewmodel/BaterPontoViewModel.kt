@@ -14,7 +14,6 @@ import br.com.healthwork.utils.Formatos
 import kotlinx.coroutines.launch
 import java.io.File
 
-/** Etapas do fluxo "Bater ponto": localização -> endereço -> foto -> salvar. */
 enum class EtapaPonto {
     OCIOSO,
     OBTENDO_LOCALIZACAO,
@@ -46,17 +45,14 @@ class BaterPontoViewModel(
     var ultimoRegistro by mutableStateOf<RegistroPonto?>(null)
         private set
 
-    // Dados guardados entre a localização e a foto.
     private var codigoPendente: Long = 0
     private var enderecoPendente: String = ""
     var fotoPendente: File? = null
         private set
 
-    /** Chamado quando a tela abre. */
     fun carregar() {
         viewModelScope.launch {
             colaboradores = colaboradorRepository.listar()
-            // Mantém a seleção só se o colaborador ainda existir (pode ter sido editado ou excluído).
             selecionado = colaboradores.find { it.codigo == selecionado?.codigo }
             atualizarProximoTipo()
         }
@@ -74,7 +70,6 @@ class BaterPontoViewModel(
         else registroRepository.proximoTipo(colaborador.codigo)
     }
 
-    /** Passos 2 e 3: captura a localização e consulta a API de geocodificação. */
     fun baterPonto() {
         val colaborador = selecionado
         if (colaborador == null) {
@@ -102,14 +97,12 @@ class BaterPontoViewModel(
         mensagem = "Permita o acesso à localização para bater o ponto."
     }
 
-    /** Passo 4: a tela avisa que abriu a câmera. */
     fun cameraAberta() {
         if (etapa == EtapaPonto.AGUARDANDO_FOTO) {
             etapa = EtapaPonto.CAMERA_ABERTA
         }
     }
 
-    /** Passo 5: com a foto tirada, o registro é salvo. */
     fun fotoCapturada(sucesso: Boolean) {
         if (etapa != EtapaPonto.CAMERA_ABERTA) return
         val foto = fotoPendente ?: return

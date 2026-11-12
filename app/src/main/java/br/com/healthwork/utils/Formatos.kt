@@ -32,22 +32,18 @@ object Formatos {
 
     fun dataHora(millis: Long): String = "${data(millis)} ${hora(millis)}"
 
-    /** Ex.: "Segunda-feira, 9 de novembro". */
     fun diaPorExtenso(millis: Long): String =
         paraLocalDateTime(millis).format(diaExtenso).replaceFirstChar { it.titlecase(localeBr) }
 
     fun mes(mes: YearMonth): String =
         mes.format(mesAno).replaceFirstChar { it.titlecase(localeBr) }
 
-    /** Intervalo [início, fim) do dia informado, em milissegundos. */
     fun intervaloDoDia(dia: LocalDate): Pair<Long, Long> =
         paraMillis(dia.atStartOfDay()) to paraMillis(dia.plusDays(1).atStartOfDay())
 
-    /** Intervalo [início, fim) do mês informado, em milissegundos. */
     fun intervaloDoMes(mes: YearMonth): Pair<Long, Long> =
         paraMillis(mes.atDay(1).atStartOfDay()) to paraMillis(mes.plusMonths(1).atDay(1).atStartOfDay())
 
-    /** Converte "dd/MM/yyyy" + "HH:mm" em millis, ou null se inválido. */
     fun lerDataHora(dataTexto: String, horaTexto: String): Long? = try {
         val d = LocalDate.parse(dataTexto.trim(), fmtData)
         val h = LocalTime.parse(horaTexto.trim(), fmtHora)
